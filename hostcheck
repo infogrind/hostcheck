@@ -35,26 +35,26 @@ function ssid() {
 function print_env() {
 
 	echo "Environment"
-	echo "------------------------------"
-	echo "Wi-Fi network: $(ssid)"
-	echo "PROXY:         $PROXY"
-	echo "http_proxy:    $http_proxy"
-	echo "https_proxy:   $https_proxy"
+	echo "----------------------------------------------------------"
+	echo "Wi-Fi network:		$(ssid)"
+	echo "PROXY:			$PROXY"
+	echo "http_proxy:		$http_proxy"
+	echo "https_proxy:		$https_proxy"
 	echo ""
 }
 
 echo ""
 print_env
 
-echo "Host		Ping	URL (http)"
-echo "------------------------------------"
+echo "Host			Ping	URL (http)"
+echo "----------------------------------------------------------"
 
 for host in $SITES; do
 
 	# To compute number of tabs for alignment
 	LEN=${#host}
 	T=$(($LEN / 8))
-	TABS=$((2 - $T))
+	TABS=$((3 - $T))
 
 	echo -n "$host"
 	for ((i=0; i < $TABS; i++)); do
