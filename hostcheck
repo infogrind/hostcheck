@@ -27,7 +27,7 @@ function pinghost() {
 }
 
 function urlexists() {
-	curl --output /dev/null --silent --head --fail \
+	curl --output /dev/null --silent --fail \
 		-m "$TIMEOUT" "$1"
 }
 
@@ -63,7 +63,7 @@ function print_env() {
 echo ""
 print_env
 
-echo "Host			DNS	Ping	URL (http)"
+echo "Host			DNS	Ping	http	https"
 echo "----------------------------------------------------------"
 
 for host in $SITES; do
@@ -93,6 +93,14 @@ for host in $SITES; do
 	echo -en "$STATUS\t"
 
 	URL="http://$host"
+	if urlexists "$URL"; then
+		STATUS="$OK"
+	else
+		STATUS="$NOK"
+	fi
+	echo -en "$STATUS\t"
+
+	URL="https://$host"
 	if urlexists "$URL"; then
 		STATUS="$OK"
 	else
