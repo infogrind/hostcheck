@@ -23,10 +23,10 @@ hostcheck www.google.com www.asdfxyz123bla.com
 ```
 Environment
 ----------------------------------------------------------
-Wi-Fi network:		adnovum-office
+Wi-Fi network:		acme-office
 PROXY:			
-http_proxy:		http://proxy.adnovum.hu:3128
-https_proxy:		http://proxy.adnovum.hu:3128
+http_proxy:		http://proxy.acme.com:3456
+https_proxy:		http://proxy.acme.com:3456
 
 Host			DNS	Ping	URL (http)
 ----------------------------------------------------------
@@ -37,10 +37,9 @@ www.asdfxyz123bla.com	✘	-	-
 
 ## Requirements and Limitations
 
-As I have developed this for myself only, the script currently works properly
-only on Mac OS, because of the dependency on Mac OS' Wi-Fi console tool. If run
-on another system, as long as that system supports the `host`, `ping`, and
-`curl` commands, the output should still be usable, but there will proabably be
-an ugly error message in the environment information.
+The script runs on any system that provides the `hostname`, `ping`, and `curl`
+commands. If they are not around, or only in a version that does not support the
+options used by the script (see the script itself for details), this may result
+in error messages in the output.
 
-A future release should provide better handling of this.
+For displaying the wireless network's SSID, Mac OS is currently required.

@@ -41,8 +41,12 @@ function ssid() {
 	AIRPORT="/System/Library/PrivateFrameworks/"
 	AIRPORT="${AIRPORT}Apple80211.framework/Versions"
 	AIRPORT="${AIRPORT}/Current/Resources/airport"
-	#"$AIRPORT" -I  2>&1 | sed 's/SSID/Gurk/'
-	"$AIRPORT" -I | awk '/ SSID/ { print $2 }'
+
+	if [ -x "$AIRPORT" ]; then
+		"$AIRPORT" -I | awk '/ SSID/ { print $2 }'
+	else
+		echo "(SSID detection not supported on this system)"
+	fi
 }
 
 function print_env() {
@@ -50,9 +54,9 @@ function print_env() {
 	echo "Environment"
 	echo "----------------------------------------------------------"
 	echo "Wi-Fi network:		$(ssid)"
-	echo "PROXY:			$PROXY"
-	echo "http_proxy:		$http_proxy"
-	echo "https_proxy:		$https_proxy"
+	echo "PROXY:			${PROXY:-(not set)}"
+	echo "http_proxy:		${http_proxy:-(not set)}"
+	echo "https_proxy:		${https_proxy:-(not set)}"
 	echo ""
 }
 
