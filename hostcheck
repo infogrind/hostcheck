@@ -4,8 +4,15 @@
 TIMEOUT=3
 
 # Formatting (use "echo -e")
-OK="\033[32m✔\033[0m"
-NOK="\033[31m✘\033[0m"
+# Use color only if we are within a terminal.
+# https://stackoverflow.com/a/26761733/319282
+if [ -t 1 ]; then
+	OK="\033[32m✔\033[0m"
+	NOK="\033[31m✘\033[0m"
+else
+	OK="✔"
+	NOK="✘"
+fi
 
 SITES="$*"
 
