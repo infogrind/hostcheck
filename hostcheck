@@ -24,6 +24,12 @@ function urlexists() {
 		-m "$TIMEOUT" "$1"
 }
 
+testdns() {
+	HOST="$1"
+	host "$1" > /dev/null
+}
+
+
 function ssid() {
 	AIRPORT="/System/Library/PrivateFrameworks/"
 	AIRPORT="${AIRPORT}Apple80211.framework/Versions"
@@ -46,7 +52,7 @@ function print_env() {
 echo ""
 print_env
 
-echo "Host			Ping	URL (http)"
+echo "Host			DNS	Ping	URL (http)"
 echo "----------------------------------------------------------"
 
 for host in $SITES; do
@@ -60,6 +66,13 @@ for host in $SITES; do
 	for ((i=0; i < $TABS; i++)); do
 		echo -ne "\t"
 	done
+
+	if testdns "$host"; then
+		echo -en "$OK\t"
+	else
+		echo -e "$NOK\t-\t-"
+		continue
+	fi
 
 	if pinghost "$host"; then
 		STATUS="$OK"
