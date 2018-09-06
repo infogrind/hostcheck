@@ -16,7 +16,7 @@ fi
 
 function pinghost() {
 	HOST="$1"
-	ping -c 1 -t "$TIMEOUT" "$1" > /dev/null
+	ping -c 1 -t "$TIMEOUT" "$1" > /dev/null 2>&1
 }
 
 function urlexists() {
