@@ -24,6 +24,28 @@ function urlexists() {
 		-m "$TIMEOUT" "$1"
 }
 
+function ssid() {
+	AIRPORT="/System/Library/PrivateFrameworks/"
+	AIRPORT="${AIRPORT}Apple80211.framework/Versions"
+	AIRPORT="${AIRPORT}/Current/Resources/airport"
+	#"$AIRPORT" -I  2>&1 | sed 's/SSID/Gurk/'
+	"$AIRPORT" -I | awk '/ SSID/ { print $2 }'
+}
+
+function print_env() {
+
+	echo "Environment"
+	echo "------------------------------"
+	echo "Wi-Fi network: $(ssid)"
+	echo "PROXY:         $PROXY"
+	echo "http_proxy:    $http_proxy"
+	echo "https_proxy:   $https_proxy"
+	echo ""
+}
+
+echo ""
+print_env
+
 echo "Host		Ping	URL (http)"
 echo "------------------------------------"
 
@@ -54,3 +76,5 @@ for host in $SITES; do
 	fi
 	echo -e $STATUS
 done
+
+echo ""
