@@ -3,6 +3,10 @@
 # Ping timeout in seconds
 TIMEOUT=3
 
+# Formatting (use "echo -e")
+OK="\033[32m✔\033[0m"
+NOK="\033[31m✘\033[0m"
+
 SITES="$*"
 
 if [ -z "$SITES" ]; then
@@ -20,19 +24,33 @@ function urlexists() {
 		-m "$TIMEOUT" "$1"
 }
 
-for s in $SITES; do
-	echo "Checking $s ..."
-	echo -n "- ping ..."
-	if pinghost "$s"; then
-		echo "OK"
+echo "Host		Ping	URL (http)"
+echo "------------------------------------"
+
+for host in $SITES; do
+
+	# To compute number of tabs for alignment
+	LEN=${#host}
+	T=$(($LEN / 8))
+	TABS=$((2 - $T))
+
+	echo -n "$host"
+	for ((i=0; i < $TABS; i++)); do
+		echo -ne "\t"
+	done
+
+	if pinghost "$host"; then
+		STATUS="$OK"
 	else
-		echo "NOK"
+		STATUS="$NOK"
 	fi
-	URL="http://$s"
-	echo -n "- checking URL "$URL" ..."
+	echo -en "$STATUS\t"
+
+	URL="http://$host"
 	if urlexists "$URL"; then
-		echo "OK"
+		STATUS="$OK"
 	else
-		echo "NOK"
+		STATUS="$NOK"
 	fi
+	echo -e $STATUS
 done
