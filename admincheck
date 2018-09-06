@@ -16,7 +16,7 @@ function pinghost() {
 
 function urlexists() {
 	curl --output /dev/null --silent --head --fail \
-		--connect-timeout "$TIMEOUT" "$1"
+		-m "$TIMEOUT" "$1"
 }
 
 for s in $SITES; do
