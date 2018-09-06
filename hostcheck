@@ -3,11 +3,12 @@
 # Ping timeout in seconds
 TIMEOUT=3
 
-SITES="www.admin.ch \
-	www.vtg.admin.ch \
-	www.bit.admin.ch \
-	www.ezv.admin.ch \
-	www.eda.admin.ch"
+SITES="$*"
+
+if [ -z "$SITES" ]; then
+	echo "Syntax: $0 <host>, <host>, ..."
+	exit 1
+fi
 
 function pinghost() {
 	HOST="$1"
