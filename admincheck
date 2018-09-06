@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Ping timeout in seconds
+TIMEOUT=3
+
+SITES="www.admin.ch \
+	www.vtg.admin.ch \
+	www.bit.admin.ch \
+	www.ezv.admin.ch \
+	www.eda.admin.ch"
+
+function pinghost() {
+	HOST="$1"
+	ping -c 1 -t "$TIMEOUT" "$1" > /dev/null
+}
+
+function urlexists() {
+	curl --output /dev/null --silent --head --fail \
+		--connect-timeout "$TIMEOUT" "$1"
+}
+
+for s in $SITES; do
+	echo "Checking $s ..."
+	echo -n "- ping ..."
+	if pinghost "$s"; then
+		echo "OK"
+	else
+		echo "NOK"
+	fi
+	URL="http://$s"
+	echo -n "- checking URL "$URL" ..."
+	if urlexists "$URL"; then
+		echo "OK"
+	else
+		echo "NOK"
+	fi
+done
