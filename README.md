@@ -5,6 +5,24 @@ http) to check if they are reachable. It also prints various information about
 the network environment.
 
 
+## Installation
+
+### Manual
+
+Clone this repository and put the `hostcheck` file into a location of your
+preference (it should be on your path).
+
+### Using Homebrew
+
+On OS X you can install the script via [Homebrew](https://brew.sh/), from my
+personal tap:
+
+```sh
+brew tap infogrind/homebrew-tap  # If not already done
+brew install hostcheck
+```
+
+
 ## Usage
 
 ```sh
