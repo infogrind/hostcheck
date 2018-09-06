@@ -10,7 +10,7 @@ NOK="\033[31m✘\033[0m"
 SITES="$*"
 
 if [ -z "$SITES" ]; then
-	echo "Syntax: $0 <host>, <host>, ..."
+	echo "Syntax: `basename $0` <host> [, <host>, ...]"
 	exit 1
 fi
 
